@@ -1,5 +1,7 @@
 package models;
 
+import enums.Rol;
+
 import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +11,13 @@ public class Users {
     private String firstName;
     private String email;
     private String password;
-    private Role role;
+    private Rol role;
     private List<Announcement> announcements = new ArrayList<>();
 
     public Users(){
 
     }
-    public Users(String firstName, String email, String password, Role role) {
+    public Users(String firstName, String email, String password, Rol role) {
         this.firstName = firstName;
         this.email = email;
         this.password = password;
@@ -54,11 +56,11 @@ public class Users {
         this.password = password;
     }
 
-    public Role getRole() {
+    public Rol getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(Rol role) {
         this.role = role;
     }
 
@@ -73,11 +75,11 @@ public class Users {
     @Override
     public String toString() {
         return "Users: " +
-                "id              =  " + id +
-                "firstName       =  " + firstName + '\'' +
-                "email           =  " + email + '\'' +
-                "password        =  " + password + '\'' +
-                "role            =  " + role +
-                "=  " + announcements + "\n";
+                "id = " + id +
+                ", first name = " + firstName +
+                ", email = " + email +
+                ", password = " + password +
+                ", role = " + role +
+                " = " + announcements + "\n";
     }
 }
