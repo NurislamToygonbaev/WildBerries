@@ -7,4 +7,5 @@ public interface AnnouncementDao {
     Announcement getById (Long id);
     boolean update (Announcement announcement);
     boolean delete (Long id);
+    Announcement findByAnonsimentName (String name);
 }
