@@ -34,7 +34,7 @@ public class Main {
                     }
                     case 1 -> {
                         Users users = new Users();
-                        System.out.println(register(users));
+                        System.out.println(register(users, dataBase));
                         System.out.println(userService.add(users));
                     }
                     case 2 -> {
@@ -56,7 +56,7 @@ public class Main {
         System.out.print("Command: ");
     }
 
-    private static Users register(Users users) {
+    private static Users register(Users users, DataBase dataBase) {
         Scanner scanner = new Scanner(System.in);
         users.setId(MyGeneratorId.getIdUser());
         while (true){
@@ -70,7 +70,7 @@ public class Main {
         while (true){
             System.out.print("enter email: ");
             String email = scanner.nextLine();
-            if (email.endsWith("@gmail.com") && email.length() > 11){
+            if (email.endsWith("@gmail.com") && email.length() > 11 && checkUniq(email, dataBase)){
                 users.setEmail(email);
                 break;
             } else System.out.println("Incorrect email, use domain @gmail.com");
@@ -95,5 +95,14 @@ public class Main {
             } else System.out.println("write only user or vendor ");
         }
         return users;
+    }
+
+    private static boolean checkUniq(String email, DataBase dataBase){
+        for (Users users : dataBase.getAll()) {
+            if (users.getEmail().equalsIgnoreCase(email)){
+                return false;
+            }
+        }
+        return true;
     }
 }
