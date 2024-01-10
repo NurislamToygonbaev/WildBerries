@@ -13,7 +13,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean save(Users user) {
-        return false;
+        return dataBase.save(user);
     }
 
     @Override
