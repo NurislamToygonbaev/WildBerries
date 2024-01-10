@@ -8,6 +8,7 @@ public class Announcement {
     private Users owner;
     private Favorite favorites;
 
+    public Announcement(){}
     public Announcement(String name, String description, double price) {
         this.name = name;
         this.description = description;

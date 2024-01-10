@@ -4,6 +4,7 @@ import dao.daoImpl.UserDaoImpl;
 import database.DataBase;
 import enums.Rol;
 import generator.MyGeneratorId;
+import models.Announcement;
 import models.Users;
 import service.AnnouncementService;
 import service.FavoriteService;
@@ -64,7 +65,11 @@ public class Main {
                                     menuVendor();
                                     switch (scanner.nextInt()){
                                         case 0 -> {break innerLoopVendor;}
-                                        case 1 -> {}
+                                        case 1 -> {
+                                            Announcement announcement = new Announcement();
+                                            System.out.println(createAnnouncement(announcement));
+                                            System.out.println(announcementService.save(announcement));
+                                        }
                                         case 2 -> { }
                                         case 3 -> {  }
                                         case 4 -> {   }
@@ -160,5 +165,39 @@ public class Main {
             }
         }
         return true;
+    }
+
+    private static Announcement createAnnouncement(Announcement announcement){
+        Scanner scanner = new Scanner(System.in);
+        Scanner scanForNum = new Scanner(System.in);
+        announcement.setId(MyGeneratorId.getIdAnnouncement());
+        while (true){
+            System.out.print("enter announcement name: ");
+            String name = scanner.nextLine();
+            if (check(name)){
+                announcement.setName(name);
+                break;
+            } else System.out.println("write correct");
+        }
+        while (true){
+            System.out.print("enter announcement description: ");
+            String desc = scanner.nextLine();
+            if (check(desc)){
+                announcement.setDescription(desc);
+                break;
+            } else System.out.println("write correct");
+        }
+        while (true){
+            System.out.print("enter announcement price: ");
+            double price = scanForNum.nextDouble();
+            if (price > 0){
+                announcement.setPrice(price);
+                break;
+            }
+        }
+        return announcement;
+    }
+    private static boolean check(String str){
+        return str.length() >= 4;
     }
 }
