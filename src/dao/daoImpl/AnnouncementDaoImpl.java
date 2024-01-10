@@ -6,6 +6,8 @@ import exception.MyException;
 import models.Announcement;
 import models.Users;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class AnnouncementDaoImpl implements AnnouncementDao {
@@ -37,13 +39,15 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
     }
 
     @Override
-    public boolean update(Announcement announcement) {
+    public boolean update(Announcement announcement, Long id) {
         for (Users users : dataBase.getAll()) {
             for (Announcement usersAnnouncement : users.getAnnouncements()) {
-                usersAnnouncement.setName(announcement.getName());
-                usersAnnouncement.setDescription(announcement.getDescription());
-                usersAnnouncement.setPrice(announcement.getPrice());
-                return true;
+                if (usersAnnouncement.getId().equals(id)){
+                    usersAnnouncement.setName(announcement.getName());
+                    usersAnnouncement.setDescription(announcement.getDescription());
+                    usersAnnouncement.setPrice(announcement.getPrice());
+                    return true;
+                }
             }
         }
         throw new MyException("error");
@@ -62,14 +66,15 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
     }
 
     @Override
-    public Announcement findByAnonsimentName(String name) {
+    public List<Announcement> findAnnouncementByName(String name) {
+        List<Announcement> announcements = new ArrayList<>();
         for (Users users:dataBase.getAll()){
             for (Announcement announcement:users.getAnnouncements()){
                 if (announcement.getName().equals(name)){
-                    return announcement;
+                    announcements.add(announcement);
                 }
             }
         }
-        throw new MyException("announcement with name: "+name+ " not found!");
+        return announcements;
     }
 }

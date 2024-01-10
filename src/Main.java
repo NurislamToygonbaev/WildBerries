@@ -24,6 +24,7 @@ public class Main {
         UserService userService = new UserServiceImpl(new UserDaoImpl(dataBase));
         AnnouncementService announcementService = new AnnouncementServiceImpl(new AnnouncementDaoImpl(dataBase));
         FavoriteService favoriteService = new FavoriteServiceImpl(new FavoriteDaoImpl(dataBase));
+        Users currentUser = null;
         OuterLoop:
         while (true) {
             try {
@@ -38,12 +39,46 @@ public class Main {
                         System.out.println(userService.add(users));
                     }
                     case 2 -> {
-                        userService.logIn();
+                        System.out.print("enter email: ");
+                        String log = scanForStr.nextLine();
+                        System.out.print("enter password: ");
+                        String pass = scanForStr.nextLine();
+                        currentUser = userService.logIn(log, pass);
+                        if (currentUser != null){
+                            if (currentUser.getRole().equals(Rol.USER)){
+                                innerLoopUser:
+                                while (true){
+                                    menuUser();
+                                    switch (scanner.nextInt()){
+                                        case 0 -> {break innerLoopUser;}
+                                        case 1 -> {}
+                                        case 2 -> { }
+                                        case 3 -> {  }
+                                        case 4 -> {   }
+                                        default -> System.out.println("enter correct choice");
+                                    }
+                                }
+                            } else if (currentUser.getRole().equals(Rol.VENDOR)) {
+                                innerLoopVendor:
+                                while (true){
+                                    menuVendor();
+                                    switch (scanner.nextInt()){
+                                        case 0 -> {break innerLoopVendor;}
+                                        case 1 -> {}
+                                        case 2 -> { }
+                                        case 3 -> {  }
+                                        case 4 -> {   }
+                                        default -> System.out.println("Incorrect choice");
+                                    }
+                                }
+                            }
+                        }
                     }
                     default -> System.out.println("enter correct choice");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect, enter valid Integer");
+                scanner.next();
             }
         }
     }
@@ -56,11 +91,31 @@ public class Main {
                 """);
         System.out.print("Command: ");
     }
+    private static void menuUser(){
+        System.out.println("""
+                0.  Exit
+                1.  get All announcement
+                2.  get announcement by name
+                3.  get announcement by id
+                4.  my favorites
+                5.  update my profile
+                """);
+    }
+    private static void menuVendor(){
+        System.out.println("""
+                0.  Exit
+                1.  Create announcement
+                2.  get all my announcement
+                3.  update my announcement by id
+                4.  delete announcement by id
+                5.  update my profile
+                """);
+    }
 
     private static Users register(Users users, DataBase dataBase) {
         Scanner scanner = new Scanner(System.in);
         users.setId(MyGeneratorId.getIdUser());
-        while (true){
+        while (true) {
             System.out.print("enter user name: ");
             String name = scanner.nextLine();
             if (!name.isEmpty()) {
@@ -68,26 +123,26 @@ public class Main {
                 break;
             } else System.out.println("Incorrect name");
         }
-        while (true){
+        while (true) {
             System.out.print("enter email: ");
             String email = scanner.nextLine();
-            if (email.endsWith("@gmail.com") && email.length() > 11 && checkUniq(email, dataBase)){
+            if (email.endsWith("@gmail.com") && email.length() > 11 && checkUniq(email, dataBase)) {
                 users.setEmail(email);
                 break;
             } else System.out.println("Incorrect email, use domain @gmail.com");
         }
-        while (true){
+        while (true) {
             System.out.print("enter password: ");
             String pass = scanner.nextLine();
-            if (pass.length() > 4){
+            if (pass.length() > 4) {
                 users.setPassword(pass);
                 break;
             } else System.out.println("write more 4 symbol");
         }
-        while (true){
+        while (true) {
             System.out.print("enter role (user|vendor) : ");
             String role = scanner.nextLine();
-            if (role.equalsIgnoreCase("user")){
+            if (role.equalsIgnoreCase("user")) {
                 users.setRole(Rol.USER);
                 break;
             } else if (role.equalsIgnoreCase("vendor")) {
