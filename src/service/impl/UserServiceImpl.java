@@ -5,6 +5,8 @@ import exception.MyException;
 import models.Users;
 import service.UserService;
 
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
 
     private final UserDaoImpl userDao;
@@ -15,8 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String add(Users users) {
-        userDao.save(users);
-        return "Successfully saved";
+       return userDao.save(users);
     }
 
     @Override
@@ -31,5 +32,38 @@ public class UserServiceImpl implements UserService {
             System.out.println("Invalid email or password");
         }
         return null;
+    }
+
+    @Override
+    public Users getById(Long id) {
+        try {
+            return userDao.getById(id);
+        } catch (MyException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public String update(Users user) {
+        try {
+            return userDao.update(user);
+        } catch (MyException e){
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public String delete(Long id) {
+        try {
+            return userDao.delete(id);
+        } catch (MyException e){
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public List<Users> getAll() {
+        return userDao.getAll();
     }
 }

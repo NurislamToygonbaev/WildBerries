@@ -11,6 +11,7 @@ public class Users {
     private String firstName;
     private String email;
     private String password;
+    private String phoneNumber;
     private Rol role;
     private List<Announcement> announcements = new ArrayList<>();
 
@@ -56,6 +57,14 @@ public class Users {
         this.password = password;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public Rol getRole() {
         return role;
     }
@@ -79,7 +88,13 @@ public class Users {
                 ", first name = " + firstName +
                 ", email = " + email +
                 ", password = " + password +
+                ", phone number = " + phoneNumber +
                 ", role = " + role +
                 " = " + announcements + "\n";
+    }
+
+    public String addAnnouncement(Announcement newAnnouncement) {
+        announcements.add(newAnnouncement);
+        return "success";
     }
 }

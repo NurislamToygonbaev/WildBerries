@@ -18,9 +18,10 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
     }
 
     @Override
-    public boolean save(Announcement announcement) {
+    public String save(Announcement announcement) {
         for (Users users:dataBase.getAll()){
-           return users.getAnnouncements().add(announcement);
+            users.getAnnouncements().add(announcement);
+            return "successfully saved";
         }
         throw new MyException("error!");
     }
@@ -39,14 +40,14 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
     }
 
     @Override
-    public boolean update(Announcement announcement, Long id) {
+    public String update(Announcement announcement, Long id) {
         for (Users users : dataBase.getAll()) {
             for (Announcement usersAnnouncement : users.getAnnouncements()) {
                 if (usersAnnouncement.getId().equals(id)){
                     usersAnnouncement.setName(announcement.getName());
                     usersAnnouncement.setDescription(announcement.getDescription());
                     usersAnnouncement.setPrice(announcement.getPrice());
-                    return true;
+                    return "successfully updated";
                 }
             }
         }
@@ -54,15 +55,16 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public String delete(Long id) {
         for (Users users:dataBase.getAll()){
             for (Announcement announcement:users.getAnnouncements()){
                 if (announcement.getId().equals(id)){
-                   return users.getAnnouncements().remove(announcement);
+                    users.getAnnouncements().remove(announcement);
+                    return "successfully updated";
                 }
             }
         }
-        throw new MyException("announcement woth id: "+id+ " not found!");
+        throw new MyException("announcement with id: "+id+ " not found!");
     }
 
     @Override
@@ -74,6 +76,15 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
                     announcements.add(announcement);
                 }
             }
+        }
+        return announcements;
+    }
+
+    @Override
+    public List<Announcement> getAllAnnouncement() {
+        List<Announcement> announcements = new ArrayList<>();
+        for (Users users : dataBase.getAll()) {
+            announcements.addAll(users.getAnnouncements());
         }
         return announcements;
     }
