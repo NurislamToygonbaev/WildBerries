@@ -2,6 +2,7 @@ package dao.daoImpl;
 
 import dao.UserDao;
 import database.DataBase;
+import exception.MyException;
 import models.Users;
 
 public class UserDaoImpl implements UserDao {
@@ -18,16 +19,32 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Users getById(Long id) {
-        return null;
+        for (Users users : dataBase.getAll()) {
+            if (users.getId().equals(id)){
+                return users;
+            }
+        }
+        throw new MyException(String.format("The user under the id: "+id+" was not found."));
     }
 
     @Override
     public boolean update(Users user) {
-        return false;
+        for (Users users : dataBase.getAll()) {
+            users.setFirstName(user.getFirstName());
+            users.setEmail(user.getEmail());
+            users.setPassword(user.getPassword());
+            return true;
+        }
+        throw new MyException(String.format("User not fount."));
     }
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        for (Users users : dataBase.getAll()) {
+            if (users.getId().equals(id)){
+                return dataBase.remove(users);
+            }
+        }
+        throw new MyException(String.format("The user under the id: "+id+" was not found."));
     }
 }
