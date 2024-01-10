@@ -53,6 +53,7 @@ public class Main {
                 1.  Registration
                 2.  LogIn
                 """);
+        System.out.print("Command: ");
     }
 
     private static Users register(Users users) {
@@ -64,7 +65,7 @@ public class Main {
             if (!name.isEmpty()) {
                 users.setFirstName(name);
                 break;
-            }
+            } else System.out.println("Incorrect name");
         }
         while (true){
             System.out.print("enter email: ");
@@ -72,7 +73,7 @@ public class Main {
             if (email.endsWith("@gmail.com") && email.length() > 11){
                 users.setEmail(email);
                 break;
-            }
+            } else System.out.println("Incorrect email, use domain @gmail.com");
         }
         while (true){
             System.out.print("enter password: ");
@@ -80,7 +81,7 @@ public class Main {
             if (pass.length() > 4){
                 users.setPassword(pass);
                 break;
-            }
+            } else System.out.println("write more 4 symbol");
         }
         while (true){
             System.out.print("enter role (user|vendor) : ");
@@ -91,7 +92,7 @@ public class Main {
             } else if (role.equalsIgnoreCase("vendor")) {
                 users.setRole(Rol.VENDOR);
                 break;
-            }
+            } else System.out.println("write only user or vendor ");
         }
         return users;
     }

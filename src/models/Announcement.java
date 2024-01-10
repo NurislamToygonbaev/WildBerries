@@ -65,11 +65,11 @@ public class Announcement {
     @Override
     public String toString() {
         return "Announcement: " +
-                "id          =   " + id +
-                "name        =   " + name + '\'' +
-                "description =   " + description + '\'' +
-                "price       =   " + price +
-                "owner       =   " + owner + '\'' +
-                "favorites   =   " + favorites + "\n";
+                "id = " + id +
+                ", name = " + name  +
+                ", description = " + description  +
+                ", price = " + price +
+                ", owner = " + owner +
+                ", favorites = " + favorites + "\n";
     }
 }

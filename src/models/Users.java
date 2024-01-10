@@ -75,11 +75,11 @@ public class Users {
     @Override
     public String toString() {
         return "Users: " +
-                "id              =  " + id +
-                "firstName       =  " + firstName + '\'' +
-                "email           =  " + email + '\'' +
-                "password        =  " + password + '\'' +
-                "role            =  " + role +
-                "=  " + announcements + "\n";
+                "id = " + id +
+                ", first name = " + firstName +
+                ", email = " + email +
+                ", password = " + password +
+                ", role = " + role +
+                " = " + announcements + "\n";
     }
 }
