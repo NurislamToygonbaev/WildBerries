@@ -1,9 +1,16 @@
 package dao.daoImpl;
 
 import dao.UserDao;
+import database.DataBase;
 import models.Users;
 
 public class UserDaoImpl implements UserDao {
+    private final DataBase dataBase;
+
+    public UserDaoImpl(DataBase dataBase) {
+        this.dataBase = dataBase;
+    }
+
     @Override
     public boolean save(Users user) {
         return false;
