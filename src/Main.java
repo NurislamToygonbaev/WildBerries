@@ -38,6 +38,7 @@ public class Main {
                         System.out.println(userService.add(users));
                     }
                     case 2 -> {
+                        userService.logIn();
                     }
                     default -> System.out.println("enter correct choice");
                 }

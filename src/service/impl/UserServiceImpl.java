@@ -17,4 +17,9 @@ public class UserServiceImpl implements UserService {
         userDao.save(users);
         return "Successfully saved";
     }
+
+    @Override
+    public Users logIn() {
+        return null;
+    }
 }
