@@ -15,41 +15,42 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean save(Users user) {
-        return dataBase.save(user);
+    public String save(Users user) {
+        dataBase.save(user);
+        return "successfully saved";
     }
 
     @Override
     public Users getById(Long id) {
         for (Users users : dataBase.getAll()) {
-            if (users.getId().equals(id)){
+            if (users.getId().equals(id)) {
                 return users;
             }
         }
-        throw new MyException("The user under the id: "+id+" was not found.");
+        throw new MyException("The user under the id: " + id + " was not found.");
     }
 
     @Override
-    public boolean update(Users user, Long id) {
-        for (Users users : dataBase.getAll()) {
-            if (users.getId().equals(id)){
-                users.setFirstName(user.getFirstName());
-                users.setEmail(user.getEmail());
-                users.setPassword(user.getPassword());
-                return true;
+    public String update(Users user) {
+        for (Users currentUser : dataBase.getAll()) {
+            if (currentUser.getEmail().equalsIgnoreCase(user.getEmail())){
+                currentUser.setFirstName(user.getFirstName());
+                currentUser.setPassword(user.getPassword());
+                return "successfully updated";
             }
         }
-        throw new MyException("User not fount.");
+        throw new MyException("User not found.");
     }
 
     @Override
-    public boolean delete(Long id) {
+    public String delete(Long id) {
         for (Users users : dataBase.getAll()) {
-            if (users.getId().equals(id)){
-                return dataBase.remove(users);
+            if (users.getId().equals(id)) {
+                dataBase.getAll().remove(users);
+                return "successfully deleted";
             }
         }
-        throw new MyException("The user under the id: "+id+" was not found.");
+        throw new MyException("The user under the id: " + id + " was not found.");
     }
 
     @Override

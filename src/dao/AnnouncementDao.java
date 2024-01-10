@@ -5,9 +5,10 @@ import models.Announcement;
 import java.util.List;
 
 public interface AnnouncementDao {
-    boolean save (Announcement announcement);
+    String save (Announcement announcement);
     Announcement getById (Long id);
-    boolean update (Announcement announcement, Long id);
-    boolean delete (Long id);
+    String update (Announcement announcement, Long id);
+    String delete (Long id);
     List<Announcement> findAnnouncementByName (String name);
+    List<Announcement> getAllAnnouncement();
 }

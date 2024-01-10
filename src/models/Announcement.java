@@ -5,7 +5,7 @@ public class Announcement {
     private String name;
     private String description;
     private double price;
-    private Users owner;
+    private String owner;
     private Favorite favorites;
 
     public Announcement(){}
@@ -47,11 +47,11 @@ public class Announcement {
         this.price = price;
     }
 
-    public Users getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(Users owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 
