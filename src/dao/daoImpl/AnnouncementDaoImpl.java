@@ -1,6 +1,7 @@
 package dao.daoImpl;
 
 import dao.AnnouncementDao;
+import database.DataBase;
 import models.Announcement;
 
 public class AnnouncementDaoImpl implements AnnouncementDao {
