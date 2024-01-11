@@ -5,7 +5,9 @@ import database.DataBase;
 import exception.MyException;
 import models.Users;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
     private final DataBase dataBase;
@@ -22,9 +24,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Users getById(Long id) {
-        for (Users users : dataBase.getAll()) {
-            if (users.getId().equals(id)) {
-                return users;
+        for (int i = 1; i < dataBase.getAll().size(); i++) {
+            if (dataBase.getAll().get(i).getId().equals(id)){
+                return dataBase.getAll().get(i);
             }
         }
         throw new MyException("The user under the id: " + id + " was not found.");
@@ -44,9 +46,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public String delete(Long id) {
-        for (Users users : dataBase.getAll()) {
-            if (users.getId().equals(id)) {
-                dataBase.getAll().remove(users);
+        for (int i = 1; i < dataBase.getAll().size(); i++) {
+            if (dataBase.getAll().get(i).getId().equals(id)){
+                dataBase.getAll().remove(dataBase.getAll().get(i));
                 return "successfully deleted";
             }
         }

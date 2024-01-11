@@ -145,8 +145,7 @@ public class Main {
                                         default -> System.out.println("Incorrect choice");
                                     }
                                 }
-
-                            }
+                            } else System.out.println();
                         }
                     }
                     default -> System.out.println("enter correct choice");
